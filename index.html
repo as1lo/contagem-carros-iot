@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados Semáforo</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        async function fetchData() {
+            try {
+                
+                let response = await fetch('http//:127.0.0.1/endpoint');
+                
+            
+                let vetorValores = await response.text();
+
+                
+                let vetor = vetorValores.split(',');  
+
+                let resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '<h2>Dados Recebidos:</h2>';
+
+                let ul = document.createElement('ul');
+
+                vetor.forEach(item => {
+                    let li = document.createElement('li');
+                    li.textContent = item;
+                    ul.appendChild(li);
+                });
+
+                resultDiv.appendChild(ul);
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Resultado de dados de 4 (quatro) semáforos</h1>
+    
+    <button onclick="fetchData()">Buscar Dados</button>
+    <div id="result"></div>
+</body>
+</html>
